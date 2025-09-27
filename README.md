@@ -35,5 +35,5 @@ python app.py
 
 
 ## Mermaid Schema
-![Mermaid-Schema-BC](https://github.com/user-attachments/assets/26c6ae1d-829f-4d80-b420-6d7346671e2a)
-<svg id="export-svg" width="100%" xmlns="http://www.w3.org/2000/svg" class="erDiagram" style="max-width: 385.50390625px;" viewBox="0 -46 385.50390625 1059" role="graphics-document document" aria-roledescription="er"><style xmlns="http://www.w3.org/1999/xhtml">/
+<img src="./BC-Schema.png">
+
