@@ -33,6 +33,22 @@ python app.py
 - The SQLite database lives in memory for each run; tweak `DB_MODE` in `.env` to persist to `ballard_center.db` for debugging.
 - We log each Q > SQL > rowcount in `logs/` (JSONL).
 
+## Prompt Strategies
+- Return ONE valid SQLite SELECT only. No prose, no commentary.
+- Use only these tables/columns:
+    Teams(TeamID, TeamTitle, SupervisorEmail)
+    Employees(NetID, FirstName, LastName, TeamID, HireDate, Status)
+    PerformanceReviews(ReviewID, NetID, TeamID, ReviewDate, ScoreTotal, RaiseEntered, StayingNextSemester, Feedback)
+- If a needed column is not listed, return exactly: SCHEMA_MISMATCH
+- SQLite only: use strftime('%Y-%m', datecol) for monthly grouping.
+  Do NOT use DATE_TRUNC, ILIKE, STRING_AGG, or ::casts.
+- Join keys:
+    Employees.TeamID = Teams.TeamID
+    PerformanceReviews.NetID = Employees.NetID
+    (Add PerformanceReviews.TeamID = Teams.TeamID when team context is asked)
+- For “top N” questions, include ORDER BY and LIMIT N.
+- “This semester” = ReviewDate between '2025-01-01' and '2025-05-01' unless specified.
+
 
 ## Mermaid Schema
 <img src="./BC-Schema.png">
